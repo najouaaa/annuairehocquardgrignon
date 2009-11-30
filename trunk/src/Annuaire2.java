@@ -3,7 +3,7 @@ import java.util.Iterator;
 
 
 public class Annuaire2 {
-	HashMap<Relais> toutRelais = new HashMap<Relais>();
+	HashMap<String, Relais> toutRelais = new HashMap<String, Relais>();
 	//Constructeur
 	public Annuaire2(){
 		
@@ -15,16 +15,13 @@ public class Annuaire2 {
 	}
 	//Supprimer un relais
 	public void removeRelais(String nomRelais){
-		if(this.getRelais(nomRelais)){
-			this.toutRelais.remove(this.prendRelais(nomRelais));
-		}else{
-			System.out.println("Relais introuvé");
-		}
+		this.toutRelais.remove(nomRelais);
 	}
 	
 	//Affichage des coordonnées des relais ayant le nom du service en paramètre
 	public void afficheRelais (String nomService) {
-		Iterator<Relais> it = this.toutRelais.iterator();
+		//à refaire
+		/*Iterator<Relais> it = this.toutRelais.iterator();
 		System.out.println("Les relais avec le service "+nomService+" sont :");
 		while(it.hasNext()){
 			Relais rTemp = it.next();
@@ -32,13 +29,14 @@ public class Annuaire2 {
 				System.out.println(rTemp.getNomRelais()+": X="+rTemp.getX()+", Y="+rTemp.getY());
 			}
 		}
-		System.out.println("");
+		System.out.println("");*/
 
 	}
 	
 	// chercher le relais le plus proche proposant un service donné 
 	public Relais chercheRelais(String nomService, int minute, double x, double y){
-		Iterator<Relais> it = this.toutRelais.iterator();
+		//A refaire
+		/*Iterator<Relais> it = this.toutRelais.iterator();
 		double distance = 999999999;
 		Relais rTemp = it.next();
 		Relais rRes = new Relais();
@@ -48,44 +46,38 @@ public class Annuaire2 {
 			}
 			rTemp = it.next();
 		}
-		return rRes;
+		return rRes;*/
 	}
 	
 	
 	//Fonction qui retourne vrai si deux annuaire ont les memes relais
-	public boolean isEqual1(Annuaire A2){
-		Iterator<Relais> it = this.toutRelais.iterator();
-		while(it.hasNext()){
-			Relais relais = it.next();
-			if(A2.getRelais(relais.nomRelais)==false){
-				return false;
-			}
+	public boolean isEqual1(Annuaire2 A2){
+		if(this.toutRelais.size() != A2.toutRelais.size()){
+			return false;
+		}else if(this.toutRelais.values() == A2.toutRelais.values()){
+			return true;
+		}else{
+			return false;
 		}
-		Iterator<Relais> it2= A2.toutRelais.iterator();
-		//on vérifie que "this" contient A2, puis que A2 contient "this"
-		while(it2.hasNext()){
-			Relais relais = it2.next();
-			if(this.getRelais(relais.nomRelais)==false){
-				return false;
-			}
-		}
-		return true;
 	}
 	
 	//Savoir si l'annuaire a le relais passé en paramètre
 	public boolean getRelais(String nomRelais){
-		Iterator<Relais> it = toutRelais.iterator();
+		//A refaire
+		
+		/*Iterator<Relais> it = toutRelais.iterator();
 		while(it.hasNext()){
 			Relais relaisTemp = it.next();
 			if(relaisTemp.getNomRelais() == nomRelais){
 				return true;
 			}
 		}
-		return false;
+		return false;*/
 	}
 	//renvoie le Relais qui a le nom de celui-ci en argument
 	public Relais prendRelais(String nomRelaisArg){
-		Iterator<Relais> it = toutRelais.iterator();
+		//A refaire
+		/*Iterator<Relais> it = toutRelais.iterator();
 			while(it.hasNext()){
 				Relais relais = it.next();
 				if(relais.getNomRelais()==nomRelaisArg){
@@ -93,16 +85,17 @@ public class Annuaire2 {
 				}
 			}
 		System.out.println("Non prise du Relais !!!!");
-		return null;
+		return null;*/
 	}
 	
 	
 	//affichage des relais avec leurs services
 	public void afficherTout(){
-		Iterator<Relais> it = toutRelais.iterator();
+		//A refaire
+		/*Iterator<Relais> it = toutRelais.iterator();
 		while(it.hasNext()){
 			Relais relais = it.next();
 			relais.afficherServices();
-		}
+		}*/
 	}
 }
