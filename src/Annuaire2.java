@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 
 
 public class Annuaire2 {
@@ -20,33 +21,33 @@ public class Annuaire2 {
 	
 	//Affichage des coordonnées des relais ayant le nom du service en paramètre
 	public void afficheRelais (String nomService) {
-		//à refaire
-		/*Iterator<Relais> it = this.toutRelais.iterator();
+		Set<String> cles = this.toutRelais.keySet();
+		Iterator<String> it = cles.iterator();
 		System.out.println("Les relais avec le service "+nomService+" sont :");
 		while(it.hasNext()){
-			Relais rTemp = it.next();
+			Relais rTemp = this.toutRelais.get(it);
 			if(rTemp.getService(nomService)){
 				System.out.println(rTemp.getNomRelais()+": X="+rTemp.getX()+", Y="+rTemp.getY());
 			}
 		}
-		System.out.println("");*/
+		System.out.println("");
 
 	}
 	
 	// chercher le relais le plus proche proposant un service donné 
 	public Relais chercheRelais(String nomService, int minute, double x, double y){
-		//A refaire
-		/*Iterator<Relais> it = this.toutRelais.iterator();
+		Set<String> cles = this.toutRelais.keySet();
+		Iterator<String> it = cles.iterator();
 		double distance = 999999999;
-		Relais rTemp = it.next();
+		Relais rTemp = this.toutRelais.get(it);
 		Relais rRes = new Relais();
 		while(it.hasNext()){
 			if( (rTemp.getService(nomService)) && (rTemp.distanceTo(x, y)<distance ) && rTemp.prendService(nomService).isDispo(minute)){
 				rRes = rTemp;
 			}
-			rTemp = it.next();
+			rTemp = this.toutRelais.get(it);
 		}
-		return rRes;*/
+		return rRes;
 	}
 	
 	
@@ -63,39 +64,42 @@ public class Annuaire2 {
 	
 	//Savoir si l'annuaire a le relais passé en paramètre
 	public boolean getRelais(String nomRelais){
-		//A refaire
-		
-		/*Iterator<Relais> it = toutRelais.iterator();
+		Set<String> cles = this.toutRelais.keySet();
+		Iterator<String> it = cles.iterator();
 		while(it.hasNext()){
-			Relais relaisTemp = it.next();
+			Relais relaisTemp = this.toutRelais.get(it);
 			if(relaisTemp.getNomRelais() == nomRelais){
 				return true;
 			}
 		}
-		return false;*/
+		return false;
 	}
 	//renvoie le Relais qui a le nom de celui-ci en argument
 	public Relais prendRelais(String nomRelaisArg){
-		//A refaire
-		/*Iterator<Relais> it = toutRelais.iterator();
+		Set<String> cles = this.toutRelais.keySet();
+		Iterator<String> it = cles.iterator();
 			while(it.hasNext()){
-				Relais relais = it.next();
+				Relais relais = this.toutRelais.get(it);
 				if(relais.getNomRelais()==nomRelaisArg){
 					return relais;
 				}
 			}
 		System.out.println("Non prise du Relais !!!!");
-		return null;*/
+		return null;
 	}
 	
 	
 	//affichage des relais avec leurs services
 	public void afficherTout(){
-		//A refaire
-		/*Iterator<Relais> it = toutRelais.iterator();
+		Set<String> cles = this.toutRelais.keySet();
+		Iterator<String> it = cles.iterator();
 		while(it.hasNext()){
-			Relais relais = it.next();
+			Relais relais = this.toutRelais.get(it);
 			relais.afficherServices();
-		}*/
+		}
+	}
+	
+	public void clear(){
+		this.toutRelais.clear();
 	}
 }
