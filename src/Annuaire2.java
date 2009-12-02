@@ -34,6 +34,34 @@ public class Annuaire2 {
 
 	}
 	
+	//afficher tout les relais assurant un service
+	public void afficherRelaisServ(String nomService){
+		Set<String> cles = this.toutRelais.keySet();
+		Iterator<String> it = cles.iterator();
+		Relais rTemp = this.toutRelais.get(it);
+		while(it.hasNext()){
+			if(rTemp.getService(nomService) ){
+				System.out.println("x : "+rTemp.getX()+", y : "+rTemp.getY());
+			}
+			rTemp = this.toutRelais.get(it);
+		}
+	}
+	//afficher le relais le plus proche
+	public Relais chercheRelais(String nomService, double x, double y){
+		Set<String> cles = this.toutRelais.keySet();
+		Iterator<String> it = cles.iterator();
+		double distance = 999999999;
+		Relais rTemp = this.toutRelais.get(it);
+		Relais rRes = new Relais();
+		while(it.hasNext()){
+			if( (rTemp.getService(nomService)) && (rTemp.distanceTo(x, y)<distance )){
+				rRes = rTemp;
+			}
+			rTemp = this.toutRelais.get(it);
+		}
+		return rRes;
+	}
+	
 	// chercher le relais le plus proche proposant un service donnŽ 
 	public Relais chercheRelais(String nomService, int minute, double x, double y){
 		Set<String> cles = this.toutRelais.keySet();
