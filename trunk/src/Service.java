@@ -50,8 +50,8 @@ public class Service {
 	}
 	
 	/**
-	 * addDispo permet de mettre à true les disponibilité d'un service 
-	 * @param minuteDebut
+	 * addDispo permet de mettre à true les disponibilité d'un service placé en paramètre
+	 * @param minuteDebut int représentant la minute du début de p
 	 * @param minuteFin
 	 */
 	public void addDispo(int minuteDebut, int minuteFin){
