@@ -1,13 +1,22 @@
-
+/**
+ * Disponibilite représente la disponibilité d'une minute durant la journée
+ * @author Hocquard Grignon
+ */
 public class Disponibilite {
-	// temps exprimés en minutes sur une journée (24*60 = 1440 minutes)
 	int minute;
 	boolean dispo;
 
-	
+	/**
+	 * Le constructeur d'une disponibilité s'initialise à false;
+	 */
 	public Disponibilite(){
 		dispo = false;
 	}
+	/**
+	 * Le constructeur surchargé de la minute, ainsi que de la disponibilité, permet de mettre la disponibilité à true ou false selon le paramètre
+	 * @param minute int représentant la minute de disponibilité
+	 * @param dispo boolean représentant true si le service est disponible à cette disponibilité
+	 */
 	public Disponibilite(int minute, boolean dispo){
 		this.minute = minute;
 		this.dispo = dispo;
