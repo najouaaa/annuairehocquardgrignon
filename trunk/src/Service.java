@@ -1,12 +1,17 @@
 import java.util.ArrayList;
-import java.util.Iterator;
-
-
+/**
+ * Service représente un service donnée, il est constitué d'une arraylist représentant sa disponibilité, et d'un nom de service le représentant.
+ * @author Hocquard Grignon
+ */
 public class Service {
 	ArrayList<Disponibilite> touteDisponibilite = new ArrayList<Disponibilite>();
 	String nomService;
 
-	
+	/**
+	 * Le constructeur prend en paramètre le nom du service qui doit etre créé.
+	 * Nous initialisons les disponibilité à false
+	 * @param serv String représentant le nom du service
+	 */
 	public Service(String serv){
 		this.nomService = serv;
 		createDispo(false);
@@ -21,7 +26,10 @@ public class Service {
 		return this.nomService;
 	}
 	
-	// afficher les disponibilités d'un service
+	/**
+	 * afficherDispo affiche dans la console les disponibilité d'un service
+	 * @param i int représentant la minute du début de la disponibilité, attention, il y a de la récursivité qui fait que le i change.
+	 */
 	public void afficherDispo(int i){
 		if(i<1440){
 			Disponibilite dispoTemp = this.touteDisponibilite.get(i);
@@ -41,7 +49,11 @@ public class Service {
 		}
 	}
 	
-	//ajouter un intervalle de disponibilité
+	/**
+	 * addDispo permet de mettre à true les disponibilité d'un service 
+	 * @param minuteDebut
+	 * @param minuteFin
+	 */
 	public void addDispo(int minuteDebut, int minuteFin){
 		if (minuteDebut>=0){
 			for (int i=minuteDebut; i<=minuteFin && i<1440; i++){
@@ -51,7 +63,11 @@ public class Service {
 			System.out.println("Mauvaises disponibilitees en parametre");
 		}
 	}
-	//surpprimer un intervalle de disponibilité
+	/**
+	 * 
+	 * @param minuteDebut
+	 * @param minuteFin
+	 */
 	public void deleteDispo(int minuteDebut, int minuteFin){
 		if (minuteDebut>=0){
 			for (int i=minuteDebut; i<=minuteFin && i<1440; i++){
