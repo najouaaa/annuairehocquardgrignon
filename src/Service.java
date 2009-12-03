@@ -51,8 +51,8 @@ public class Service {
 	
 	/**
 	 * addDispo permet de mettre à true les disponibilité d'un service placé en paramètre
-	 * @param minuteDebut int représentant la minute du début de p
-	 * @param minuteFin
+	 * @param minuteDebut int représentant la minute du début de la plage horaire voulant être rajouté
+	 * @param minuteFin int représentant la minute de la fin de la plage horaire voulant être rajouté
 	 */
 	public void addDispo(int minuteDebut, int minuteFin){
 		if (minuteDebut>=0){
@@ -64,9 +64,9 @@ public class Service {
 		}
 	}
 	/**
-	 * 
-	 * @param minuteDebut
-	 * @param minuteFin
+	 * deleteDispo permet d'enlever une plage de disponibilité à un service donné
+	 * @param minuteDebut int représentant la minute du début de la plage horaire voulant être supprimé
+	 * @param minuteFin int représentant la minute de fin de la plage horaire voulant être supprimé
 	 */
 	public void deleteDispo(int minuteDebut, int minuteFin){
 		if (minuteDebut>=0){
@@ -78,9 +78,10 @@ public class Service {
 		}
 	}
 	
-	// initialisation de la disponibilité d'un service 
-	// temps exprimés en minutes sur une journée (24*60 = 1440 minutes)
-
+	/**
+	 * createDispo met toutes les disponibilité d'un service à la valeure du paramètre
+	 * @param is boolean représentant si on veut initialisé la disponibilité totale d'un service à true ou false
+	 */
 	public void createDispo(boolean is){
 		for(int i=0; i<1440; i++){
 			Disponibilite dispo = new Disponibilite(i, is);
@@ -88,7 +89,11 @@ public class Service {
 		}
 	}
 	
-	//retourne si oui ou non un service est disponible à un horaire donné
+	/**
+	 * isDispo renvoie si le service donnée est disponible à la minute placé en paramètre
+	 * @param minute int représente la minute à laquelle nous voulont savoir si le service est disponible
+	 * @return is : boolean représentant si le service est disponible
+	 */
 	public boolean isDispo(int minute){
 		return this.touteDisponibilite.get(minute).isDispo();
 	}

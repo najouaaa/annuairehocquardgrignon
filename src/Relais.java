@@ -1,19 +1,27 @@
 import java.util.*;
+/**
+ * Relais est une classe représentant un relais
+ * On considère qu'un relais est caractérisé par ses positions, ainsi que son nom
+ * Le relais comprend aussi des services, interprété par un HashSet
+ * @author Hocquard Grignon
+ * 
+ */
 public class Relais {
 	double x, y;
 	String nomRelais;
-	//HashSet >> Faut enlever un objet
 	Collection<Service> servicesPresents = new HashSet<Service>();
 	
 	public Relais(){};
-	//Constructeur surchargé
+	/**
+	 * Le constructeur permet de créer un relais et d'initialisé le nom ainsi que sa position grâce aux paramètres
+	 */
 	public Relais(String nomRelais, double x, double y){
 		this.nomRelais = nomRelais;
 		this.x = x;
 		this.y = y;
 	}
 	
-	//Setters and Getters
+	//Setters and Getters, classiques
 	public double getX(){
 		return this.x;
 	}
@@ -37,7 +45,10 @@ public class Relais {
 	//Méthode de classe///
 	//////////////////////
 	
-	//Ajouter un service du relais avec ou sans les horaires : surcharge de méthode
+	/**
+	 * addService permet de rajouter un service au relais
+	 * Le service créé porte le nom placé en paramètre
+	 */
 	public void addService(String servArg) {
 			Service service = new Service(servArg);
 			this.servicesPresents.add(service);
@@ -48,7 +59,10 @@ public class Relais {
 		this.servicesPresents.add(service);
 	}
 	
-	//Enlever un service du relais 
+	/**
+	 * removeService permet d'enlever un service du relais qui porte le nom placé en paramètre
+	 * @param nomServiceArg représente le nom du service voulant etre supprimé
+	 */
 	public void removeService (String nomServiceArg){
 		if(this.getService(nomServiceArg)){
 			this.servicesPresents.remove(this.prendService(nomServiceArg));
@@ -57,12 +71,21 @@ public class Relais {
 		}
 	}
 	
-	//Retourner la distance entre un relais et un point
+	/**
+	 * distanceTo renvoie la distance qui sépare le relais (this) du point placé en paramètre
+	 * @param x1 double représentant la position x du point
+	 * @param y1 double représentant la position y du point
+	 * @return int représentant la distance (arrondis) séparant le relais du point placé en paramètre
+	 */
 	public int distanceTo(double x1, double y1){
 		return (int)(Math.sqrt(Math.pow(this.getX()-x1, 2)+Math.pow(this.getY()-y1, 2)));
 	}
 	
-	//Retourner si deux relais ont les mêmes services 
+	/**
+	 * servicesIsEqual renvoie un boolean pour savoir si deux relais proposent les mêmes services
+	 * @param r2 représente le second relais comparé
+	 * @return boolean représentant si les deux relais proposent les mêmes services
+	 */
 	public boolean servicesIsEqual(Relais r2){
 		Iterator<Service> it = this.servicesPresents.iterator();
 		while(it.hasNext()){
@@ -81,7 +104,11 @@ public class Relais {
 		return true;
 	}
 	
-	//Retourne si un service, avec un nom caractéristique servArg, est dans le relais ou non
+	/**
+	 * getService permet de savoir si un service portant le nom placé en paramètre existe dans le relais
+	 * @param servArg String représentant le nom du service recherché
+	 * @return boolean : True si le service portant le nom placé en paramètre existe dans le relais
+	 */
 	public boolean getService(String servArg){
 		Iterator<Service> it = servicesPresents.iterator();
 		while(it.hasNext()){
@@ -93,7 +120,11 @@ public class Relais {
 		return false;
 	}
 	
-	//renvoie le service qui a le nom de service en String
+	/**
+	 * prendService renvoie le service qui a le même nom que le nom placé en paramètre
+	 * @param servArg String représentant le nom du service voulant être retourné
+	 * @return service avec le nom placé en paramètre
+	 */
 	public Service prendService(String servArg){
 		Iterator<Service> it = servicesPresents.iterator();
 			while(it.hasNext()){
@@ -106,7 +137,9 @@ public class Relais {
 		return null;
 	}
 	
-	// affichage de tous les services avec leurs disponibilités
+	/**
+	 * afficherServices permet d'afficher tout les services présent dans le relais, avec leurs disponibilités
+	 */
 	public void afficherServices(){
 		Iterator<Service> it = servicesPresents.iterator();
 		System.out.println("Le relais : "+this.getNomRelais()+", a les services : ");
