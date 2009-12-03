@@ -1,85 +1,104 @@
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
 
-
+/**
+ * Annuaire2 permet de modéliser une map de Relais.
+ * Les keys sont sous forme de String, ils représente les noms des Relais.
+ * On considère que les noms sont représentatif d'un relais.
+ * {@link #toutRelais} toutRelais est une HashMap de keys sous forme de String et d'une collections de Relais associé.
+ * @author Hocquard Grignon
+ * @since 2009
+ * @version 1.0
+ */
 public class Annuaire2 {
 	HashMap<String, Relais> toutRelais = new HashMap<String, Relais>();
-	//Constructeur
+	/**
+	 * Le constructeur est vide, il sert juste à créer une occurence d'annuaire2
+	 * @param null
+	 */
 	public Annuaire2(){
 		
 	}
-	//Ajout d'un relais
+	/**
+	 * addRelais créer un relais avec les caractèristiques nécessaire en paramètre,
+	 * puis le rajoute à la table associative de l'occurence Annuaire2
+	 * @param nomRelais String représentant le nom du relais, on considère qu'un relais est caractérisé par sa position et son nom
+	 * @param x double représentant la position x du relais
+	 * @param y double représentant la position y du relais
+	 */
 	public void addRelais(String nomRelais, double x, double y){
 		Relais rTemp = new Relais(nomRelais, x, y);
 		this.toutRelais.put(nomRelais, rTemp);
 	}
-	//Supprimer un relais
+	/**
+	 * removeRelais vérifie que le relais voulant être supprimer est dans la table associative,
+	 * si c'est le cas, la méthode le supprime de cette table.
+	 * @param nomRelais String représentant le nom du relais que nous voulont supprimer
+	 */
 	public void removeRelais(String nomRelais){
-		this.toutRelais.remove(nomRelais);
+		if(this.getRelais(nomRelais)){
+			this.toutRelais.remove(nomRelais);
+		}
 	}
 	
-	//Affichage des coordonnées des relais ayant le nom du service en paramètre
+	/**
+	 * afficheRelais affiche dans la console tout les relais présent dans la table associative avec le service demandé.
+	 * @param nomService String représentant le Service que nous voulons chercher dans la table associative
+	 */
 	public void afficheRelais (String nomService) {
-		Set<String> cles = this.toutRelais.keySet();
-		Iterator<String> it = cles.iterator();
 		System.out.println("Les relais avec le service "+nomService+" sont :");
-		while(it.hasNext()){
-			Relais rTemp = this.toutRelais.get(it);
-			if(rTemp.getService(nomService)){
-				System.out.println(rTemp.getNomRelais()+": X="+rTemp.getX()+", Y="+rTemp.getY());
+		for(String key : toutRelais.keySet()){
+			if(toutRelais.get(key).getService(nomService)){
+				System.out.println(toutRelais.get(key).getNomRelais()+": X="+toutRelais.get(key).getX()+", Y="+toutRelais.get(key).getY());
 			}
 		}
 		System.out.println("");
 
 	}
-	
-	//afficher tout les relais assurant un service
-	public void afficherRelaisServ(String nomService){
-		Set<String> cles = this.toutRelais.keySet();
-		Iterator<String> it = cles.iterator();
-		Relais rTemp = this.toutRelais.get(it);
-		while(it.hasNext()){
-			if(rTemp.getService(nomService) ){
-				System.out.println("x : "+rTemp.getX()+", y : "+rTemp.getY());
-			}
-			rTemp = this.toutRelais.get(it);
-		}
-	}
-	//afficher le relais le plus proche
+
+	/**
+	 * chercheRelais renvoie le relais le plus proche d'une position donnée assurant un service demandé.
+	 * @param nomService String représentant le service demandé.
+	 * @param x double représentant la position x demandé
+	 * @param y double représentant la position y demandé
+	 * @return relais : retourne le relais le plus proche d'une position donnée assurant un service demandé.
+	 */
 	public Relais chercheRelais(String nomService, double x, double y){
-		Set<String> cles = this.toutRelais.keySet();
-		Iterator<String> it = cles.iterator();
 		double distance = 999999999;
-		Relais rTemp = this.toutRelais.get(it);
 		Relais rRes = new Relais();
-		while(it.hasNext()){
-			if( (rTemp.getService(nomService)) && (rTemp.distanceTo(x, y)<distance )){
-				rRes = rTemp;
+		for(String key : toutRelais.keySet()){
+			if( (toutRelais.get(key).getService(nomService)) && (toutRelais.get(key).distanceTo(x, y)<distance )){
+				rRes = toutRelais.get(key);
 			}
-			rTemp = this.toutRelais.get(it);
 		}
 		return rRes;
 	}
 	
-	// chercher le relais le plus proche proposant un service donné 
+	/**
+	 * chercheRelais renvoie le relais le plus proche d'une position donnée, assurant un service demandé à une heure donnée.
+	 * @param nomService String représentant le nom du service demandé
+	 * @param minute int représentant l'heure à laquelle nous voulons savoir quand le service est assuré
+	 * @param x double représentant la position x demandé
+	 * @param y double représentant la position y demandé
+	 * @return relais : retourne le relais le plus proche d'une position donnée assurant le service demandé à une heure donnée.
+	 */
 	public Relais chercheRelais(String nomService, int minute, double x, double y){
-		Set<String> cles = this.toutRelais.keySet();
-		Iterator<String> it = cles.iterator();
 		double distance = 999999999;
-		Relais rTemp = this.toutRelais.get(it);
 		Relais rRes = new Relais();
-		while(it.hasNext()){
-			if( (rTemp.getService(nomService)) && (rTemp.distanceTo(x, y)<distance ) && rTemp.prendService(nomService).isDispo(minute)){
-				rRes = rTemp;
+		for(String key : toutRelais.keySet()){
+			if( (toutRelais.get(key).getService(nomService)) && (toutRelais.get(key).distanceTo(x, y)<distance ) && toutRelais.get(key).prendService(nomService).isDispo(minute)){
+				rRes = toutRelais.get(key);
 			}
-			rTemp = this.toutRelais.get(it);
 		}
 		return rRes;
 	}
 	
 	
-	//Fonction qui retourne vrai si deux annuaire ont les memes relais
+	/**
+	 * isEqual1 renvoie un boolean disant si deux annuaires ont les mêmes relais (sachant qu'un relais est unique, alors les annuaires sont égaux)
+	 * Les annuaire propose alors les memes relais, les memes service, ainsi que les meme disponibilités de service.
+	 * @param A2 Annuaire2 représentant le second annuaire comparé (le premier étant l'occurence placé en this)
+	 * @return boolean : renvoie si les deux annuaires sont égaux ou non
+	 */
 	public boolean isEqual1(Annuaire2 A2){
 		if(this.toutRelais.size() != A2.toutRelais.size()){
 			return false;
@@ -90,43 +109,45 @@ public class Annuaire2 {
 		}
 	}
 	
-	//Savoir si l'annuaire a le relais passé en paramètre
+	/**
+	 * getRelais renvoie si l'annuaire2 en this contient le relais portant le nom placé en paramètre
+	 * @param nomRelais String représentant le nom du relais cherché dans l'annuaire2
+	 * @return boolean : renvoie si le relais portant le nom placé en paramètre est présent dans la table associative this
+	 */
 	public boolean getRelais(String nomRelais){
-		Set<String> cles = this.toutRelais.keySet();
-		Iterator<String> it = cles.iterator();
-		while(it.hasNext()){
-			Relais relaisTemp = this.toutRelais.get(it);
-			if(relaisTemp.getNomRelais() == nomRelais){
+		for(String key : toutRelais.keySet()){
+			if(toutRelais.get(key).getNomRelais() == nomRelais){
 				return true;
 			}
 		}
 		return false;
 	}
-	//renvoie le Relais qui a le nom de celui-ci en argument
+	/**
+	 * prendRelais renvoie le relais qui porte le nom placé en paramètre
+	 * @param nomRelaisArg String représentant le nom du relais voulant être renvoyé
+	 * @return relais : est renvoyé le relais portant le nom placé en paramètre présent dans la table associative
+	 */
 	public Relais prendRelais(String nomRelaisArg){
-		Set<String> cles = this.toutRelais.keySet();
-		Iterator<String> it = cles.iterator();
-			while(it.hasNext()){
-				Relais relais = this.toutRelais.get(it);
-				if(relais.getNomRelais()==nomRelaisArg){
-					return relais;
-				}
-			}
-		System.out.println("Non prise du Relais !!!!");
-		return null;
-	}
-	
-	
-	//affichage des relais avec leurs services
-	public void afficherTout(){
-		Set<String> cles = this.toutRelais.keySet();
-		Iterator<String> it = cles.iterator();
-		while(it.hasNext()){
-			Relais relais = this.toutRelais.get(it);
-			relais.afficherServices();
+		if(getRelais(nomRelaisArg)){
+			return toutRelais.get(nomRelaisArg);
+		}else{
+			return null;
 		}
 	}
 	
+	
+	/**
+	 * afficherTout sert à afficher en console toutes les disponibilités des services de la table associative.
+	 */
+	public void afficherTout(){
+		for(String key : toutRelais.keySet()){
+			toutRelais.get(key).afficherServices();
+		}
+	}
+	
+	/**
+	 * clear permet de supprimer tout les relais de l'annuaire2 placé en this
+	 */
 	public void clear(){
 		this.toutRelais.clear();
 	}
