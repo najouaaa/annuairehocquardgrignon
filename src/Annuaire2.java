@@ -30,7 +30,7 @@ public class Annuaire2 {
 		this.toutRelais.put(nomRelais, rTemp);
 	}
 	/**
-	 * removeRelais vérifie que le relais voulant être supprimer est dans la table associative,
+	 * removeRelais vérifie que le relais voulant être supprimé est dans la table associative,
 	 * si c'est le cas, la méthode le supprime de cette table.
 	 * @param nomRelais String représentant le nom du relais que nous voulont supprimer
 	 */
@@ -42,6 +42,8 @@ public class Annuaire2 {
 	
 	/**
 	 * afficheRelais affiche dans la console tout les relais présent dans la table associative avec le service demandé.
+	 * On parcours la table associative grace à une boucle for et d'une particularité des tables associatives
+	 * on affiche tout les noms des relais présent dans la table associative toutRelais
 	 * @param nomService String représentant le Service que nous voulons chercher dans la table associative
 	 */
 	public void afficheRelais (String nomService) {
@@ -60,7 +62,7 @@ public class Annuaire2 {
 	 * @param nomService String représentant le service demandé.
 	 * @param x double représentant la position x demandé
 	 * @param y double représentant la position y demandé
-	 * @return relais : retourne le relais le plus proche d'une position donnée assurant un service demandé.
+	 * @return retourne le relais le plus proche d'une position donnée assurant un service demandé.
 	 */
 	public Relais chercheRelais(String nomService, double x, double y){
 		double distance = 999999999;
@@ -75,11 +77,17 @@ public class Annuaire2 {
 	
 	/**
 	 * chercheRelais renvoie le relais le plus proche d'une position donnée, assurant un service demandé à une heure donnée.
+	 * On initialise la distance à une valeure très grande
+	 * on parcours la table associative grace à une boucle for associé à une collection (avec keySet)
+	 * si le relais parcouru est à plus petite distance que la distance temporaire, et qu'il comprend le service en paramètre,
+	 * alors le relais parcouru est mis dans un relais temporaire, et la distance est remplacé par celle du relais au point en paramètre
+	 * on réitère ce procédé pour tout les relais,
+	 * puis on renvoie le relais qui se trouve dans le relais temporaire
 	 * @param nomService String représentant le nom du service demandé
 	 * @param minute int représentant l'heure à laquelle nous voulons savoir quand le service est assuré
 	 * @param x double représentant la position x demandé
 	 * @param y double représentant la position y demandé
-	 * @return relais : retourne le relais le plus proche d'une position donnée assurant le service demandé à une heure donnée.
+	 * @return retourne le relais le plus proche d'une position donnée assurant le service demandé à une heure donnée.
 	 */
 	public Relais chercheRelais(String nomService, int minute, double x, double y){
 		double distance = 999999999;
@@ -96,8 +104,11 @@ public class Annuaire2 {
 	/**
 	 * isEqual1 renvoie un boolean disant si deux annuaires ont les mêmes relais (sachant qu'un relais est unique, alors les annuaires sont égaux)
 	 * Les annuaire propose alors les memes relais, les memes service, ainsi que les meme disponibilités de service.
+	 * si les deux annuaires n'ont pas la meme taille, on renvoie false,
+	 * sinon si les deux relais n'ont pas les memes valeures dans leurs collections, alors on revnoie false,
+	 * si les deux premières conditions ne sont pas respéctées, alors on renvoie true
 	 * @param A2 Annuaire2 représentant le second annuaire comparé (le premier étant l'occurence placé en this)
-	 * @return boolean : renvoie si les deux annuaires sont égaux ou non
+	 * @return renvoie si les deux annuaires sont égaux ou non
 	 */
 	public boolean isEqual1(Annuaire2 A2){
 		if(this.toutRelais.size() != A2.toutRelais.size()){
@@ -111,8 +122,11 @@ public class Annuaire2 {
 	
 	/**
 	 * getRelais renvoie si l'annuaire2 en this contient le relais portant le nom placé en paramètre
+	 * on parcours la table associative des relais par une boucle for et grace à .values)
+	 * si il y a un des relais qui porte le nom placé en paramètre, on renvoie true,
+	 * sinon, on renvoie false
 	 * @param nomRelais String représentant le nom du relais cherché dans l'annuaire2
-	 * @return boolean : renvoie si le relais portant le nom placé en paramètre est présent dans la table associative this
+	 * @return renvoie si le relais portant le nom placé en paramètre est présent dans la table associative this
 	 */
 	public boolean getRelais(String nomRelais){
 		for(String key : toutRelais.keySet()){
@@ -124,8 +138,10 @@ public class Annuaire2 {
 	}
 	/**
 	 * prendRelais renvoie le relais qui porte le nom placé en paramètre
+	 * si on la table associative comporte le relais portant le nom placé en paramètre, on renvoie le relais qui a comme clé son nom
+	 * sinon, on retourne null
 	 * @param nomRelaisArg String représentant le nom du relais voulant être renvoyé
-	 * @return relais : est renvoyé le relais portant le nom placé en paramètre présent dans la table associative
+	 * @return est retourné le relais portant le nom placé en paramètre présent dans la table associative
 	 */
 	public Relais prendRelais(String nomRelaisArg){
 		if(getRelais(nomRelaisArg)){
@@ -138,6 +154,8 @@ public class Annuaire2 {
 	
 	/**
 	 * afficherTout sert à afficher en console toutes les disponibilités des services de la table associative.
+	 * on parcours la table associative de relais par une boucle for et grace à keySet.
+	 * et on appelle la méthode afficherServices pour tout les relais
 	 */
 	public void afficherTout(){
 		for(String key : toutRelais.keySet()){
@@ -147,6 +165,7 @@ public class Annuaire2 {
 	
 	/**
 	 * clear permet de supprimer tout les relais de l'annuaire2 placé en this
+	 * on utilise simplement la méthode clear pour la table associative de relais
 	 */
 	public void clear(){
 		this.toutRelais.clear();
