@@ -22,19 +22,30 @@ public class Disponibilite {
 		this.dispo = dispo;
 	}
 	
-	//getters and setters
+	/**
+	 * getter classique pour minute
+	 * @return minute de this
+	 */
 	public int getMinute() {
 		return minute;
 	}
+	/**
+	 * setter classique pour minute
+	 */
 	public void setMinute(int minute) {
 		this.minute = minute;
 	}
+	/**
+	 * setter classique pour dispo
+	 * @return boolen de dispo
+	 */
 	public boolean isDispo() {
 		return dispo;
 	}
+	/**
+	 * setter classique pour dispo
+	 */
 	public void setDispo(boolean dispo) {
 		this.dispo = dispo;
 	}
-	
-	
 }
